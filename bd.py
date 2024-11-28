@@ -14,7 +14,11 @@ def create_bd():
                     id INTEGER PRIMARY KEY,
                     name TEXT,
                     Q TEXT,
-                    q_poz TEXT
+                    q_poz TEXT,
+                    Quiz_id TEXT,
+                    Quiz_points TEXT,
+                    Quiz_done TEXT,
+                    Now_points TEXT
                 );
             """)
         print('[LOGS] | I will create USER_DB')
@@ -39,9 +43,12 @@ def create_bd():
         print('[ LOGS ] | Quiz_DB already exists!')
 
 
-def register_user(id='Null', username='Null', Q=bool, q_poz=int):
+def register_user(id='Null', username='Null', Q=0, q_poz=0, Quiz_id=0, Quiz_points=0, Quiz_done='', Now_points=0):
     try:
-        con.execute('INSERT INTO USER (id, name, Q, q_poz) VALUES (?, ?, ?, ?)', [id, username, Q, q_poz])
+        con.execute(
+            'INSERT INTO USER (id, name, Q, q_poz, Quiz_id, Quiz_points, Quiz_done, Now_points)'
+            'VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+            [id, username, Q, q_poz, Quiz_id, Quiz_points, Quiz_done, Now_points])
         con.commit()
         return True
     except sl.Error as e:
@@ -80,6 +87,6 @@ def get_all(table, what="*"):
         return False
 
 
-def update(into, what, where):
-    con.execute(f'UPDATE USER SET {into} = "{what}" WHERE {where} == id')
+def update(table, into, what, where):
+    con.execute(f'UPDATE {table} SET {into} = "{what}" WHERE {where} == id')
     con.commit()
