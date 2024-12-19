@@ -1,7 +1,7 @@
 import bd
 from telebot import *
 
-bot = TeleBot('7562808437:AAGcTtmW11RHYuHYpFp9ytOXbhPi_RRAn0g')
+bot = TeleBot('TOKEN')
 
 
 @bot.message_handler(commands=['start'])
